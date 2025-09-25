@@ -51,6 +51,8 @@ export default function FileHourlyAverageCalculator() {
     return Object.entries(grouped).map(([hour, vals]) => ({
       hour,
       avg: (vals.reduce((a, v) => a + v, 0) / vals.length).toFixed(3),
+      min: Math.min(...vals).toFixed(3),
+      max: Math.max(...vals).toFixed(3),
     }));
   };
 
@@ -65,7 +67,7 @@ export default function FileHourlyAverageCalculator() {
 
     const formatDate = (d) =>
       `${d.getFullYear()}/${String(d.getMonth() + 1).padStart(2, "0")}/${String(
-        d.getDate()
+        d.getDate(),
       ).padStart(2, "0")}`;
 
     const grouped = {};
@@ -83,6 +85,8 @@ export default function FileHourlyAverageCalculator() {
         .map(([hour, vals]) => ({
           hour: `${hour}:00`,
           avg: (vals.reduce((a, v) => a + v, 0) / vals.length).toFixed(3),
+          min: Math.min(...vals).toFixed(3),
+          max: Math.max(...vals).toFixed(3),
         })),
     };
   };
@@ -105,7 +109,9 @@ export default function FileHourlyAverageCalculator() {
           <ul className="list-disc ml-6 mt-2">
             {overallByHour.hours.map((h, i) => (
               <li key={i}>
-                {h.hour} → <strong>{h.avg} pCi/L</strong>
+                {h.hour} → <strong>{h.avg} pCi/L</strong> 
+                {" (мін: "}
+                {h.min}, макс: {h.max})
               </li>
             ))}
           </ul>
@@ -137,6 +143,8 @@ export default function FileHourlyAverageCalculator() {
                     {hourly.map((h, i2) => (
                       <li key={i2}>
                         {h.hour} → <strong>{h.avg} pCi/L</strong>
+                        {" (мін: "}
+                        {h.min}, макс: {h.max})
                       </li>
                     ))}
                   </ul>
