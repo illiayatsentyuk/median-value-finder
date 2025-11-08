@@ -130,7 +130,7 @@ export default function FileHourlyAverageCalculator() {
               <p>
                 Загальне середнє:{" "}
                 <strong>
-                  {avg} {avg !== "Не знайдено значень" && "pCi/L"}
+                  {avg *37} {avg !== "Не знайдено значень" && "pCi/L"}
                 </strong>
               </p>
 
@@ -144,7 +144,7 @@ export default function FileHourlyAverageCalculator() {
                       <li key={i2}>
                         {h.hour} → <strong>{h.avg} pCi/L</strong>
                         {" (мін: "}
-                        {h.min}, макс: {h.max})
+                        {h.min * 37}, макс: {h.max * 37})
                       </li>
                     ))}
                   </ul>
